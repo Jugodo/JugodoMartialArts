@@ -1,0 +1,22 @@
+{
+  "name": "website--wildfightersgym",
+  "version": "1.0.0",
+  "description": "Mixed martial arts",
+  "main": "index.js",
+  "scripts": {
+    "compile:sass": "node-sass sass/main.scss css/style.css -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/civas3/WEBSITE--WildFightersGym.git"
+  },
+  "author": "Paul C.",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/civas3/WEBSITE--WildFightersGym/issues"
+  },
+  "homepage": "https://github.com/civas3/WEBSITE--WildFightersGym#readme",
+  "devDependencies": {
+    "node-sass": "^5.0.0"
+  }
+}

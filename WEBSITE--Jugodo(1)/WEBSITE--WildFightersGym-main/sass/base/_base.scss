@@ -1,0 +1,52 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+  list-style-type: none;
+}
+
+html {
+  //*62.5% is equal to 10px = 1rem
+  font-size: 62.5%;
+  font-family: "Roboto", sans-serif;
+ 
+
+  body {
+    //includes the padding and border in an element's total width and height
+    box-sizing: border-box;
+    //overflow-x: hidden;
+    a {
+      text-decoration: none !important;
+    }
+    p,
+    span {
+      padding-bottom: 1rem;
+      letter-spacing: 0.1rem;
+    }
+
+    section {
+      border-bottom: solid 0.2rem $primary-red;
+    }
+
+    #testimonials,
+    #about,
+    #classes,
+    #timetable,
+    #gallery,
+    footer {
+      border-top: $primary-red solid 0.1rem;
+    }
+
+    .section-title {
+      height: 10rem;
+      @include respond(tab-port) {
+        height: 25rem;
+      }
+      @include respond(tab-land) {
+        height: 20rem;
+      }
+    }
+  }
+}

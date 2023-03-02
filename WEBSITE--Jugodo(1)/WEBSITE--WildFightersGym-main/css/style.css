@@ -1,0 +1,948 @@
+@charset "UTF-8";
+/*abstracts*/
+/*Functions allow you to define complex operations on SassScript values that you can re-use throughout 
+your stylesheet. They make it easy to abstract out common formulas and behaviors in a readable way.
+
+Functions are defined using the @function at-rule, which is written:
+ @function <name>(<arguments...>) { ... }. A function’s name can be any Sass identifier. 
+ It can only contain universal statements, as well as the @return at-rule which indicates the 
+ value to use as the result of the function call. Functions are called using the normal CSS 
+ function syntax.
+
+SCSS SYNTAX
+@function pow($base, $exponent) {
+  $result: 1;
+  @for $_ from 1 through $exponent {
+    $result: $result * $base;
+  }
+  @return $result;
+}
+
+.sidebar {
+  float: left;
+  margin-left: pow(4, 3) * 1px;
+}*/
+/*
+0 - 320px:      Smaller mobile phones
+320 - 360px:    Medium mobile phones
+360 - 480px:    Biger mobile phones
+480 - 768px:    Tablet portrait
+768 - 1024px:   Tablet landscape
+[1200 - 1800] is where our normal styles apply
+1800px + :      Big desktop
+
+$breakpoint arguement choices:
+- s-phone
+- m-phone
+- b-phone
+- tab-port
+- tab-land
+- large-desktop
+- big-desktop
+
+ORDER: Base + typography > general layout + grid > page layout > components
+
+1em = 16px
+*/
+/*base*/
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+  list-style-type: none; }
+
+html {
+  font-size: 62.5%;
+  font-family: "Roboto", sans-serif; }
+  html body {
+    box-sizing: border-box; }
+    html body a {
+      text-decoration: none !important; }
+    html body p,
+    html body span {
+      padding-bottom: 1rem;
+      letter-spacing: 0.1rem; }
+    html body section {
+      border-bottom: solid 0.2rem #e01f1f; }
+    html body #testimonials,
+    html body #about,
+    html body #classes,
+    html body #timetable,
+    html body #gallery,
+    html body footer {
+      border-top: #e01f1f solid 0.1rem; }
+    html body .section-title {
+      height: 10rem; }
+      @media only screen and (min-width: 48em) {
+        html body .section-title {
+          height: 25rem; } }
+      @media only screen and (min-width: 64em) {
+        html body .section-title {
+          height: 20rem; } }
+
+/*“Web typography” refers to the appearance of all the text on your website. It includes basic 
+CSS text properties like what font to use and whether it should be italic or not, but typography 
+is much more than that. It’s about the space between and around letters, words, and lines. It’s 
+the size of different runs of text in relation to one another, and the history behind each font family.
+
+https://www.internetingishard.com/html-and-css/web-typography/
+*/
+/* !!!!___ Use % rather than px for all layout-related lenghts (including pictures) ___!!!! */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "IM Fell English", serif;
+  text-transform: uppercase;
+  color: white; }
+
+p {
+  font-size: 1.7rem;
+  padding-bottom: 1rem;
+  line-height: 3rem; }
+  @media only screen and (min-width: 112.5em) {
+    p {
+      font-size: 1.8rem; } }
+
+li {
+  font-size: 1.7rem; }
+  @media only screen and (min-width: 112.5em) {
+    li {
+      font-size: 1.8rem; } }
+
+a {
+  text-decoration: none;
+  font-size: 1.8rem; }
+  @media only screen and (min-width: 112.5em) {
+    a {
+      font-size: 1.9rem; } }
+
+#top-main-nav .nav-link {
+  color: white;
+  text-transform: uppercase;
+  text-shadow: #000 0.1rem 0.1rem; }
+  @media only screen and (min-width: 75em) {
+    #top-main-nav .nav-link {
+      color: #000;
+      text-shadow: none; }
+      #top-main-nav .nav-link:hover {
+        color: #f2f2f2;
+        text-shadow: #000 0.1rem 0.1rem; } }
+
+.section-title .section-header {
+  color: white;
+  font-size: 3rem;
+  text-align: center;
+  text-shadow: #000 0.1rem 0.1rem; }
+  @media only screen and (min-width: 112.5em) {
+    .section-title .section-header {
+      font-size: 3.5rem; } }
+
+.section-title .section-header-white-bg {
+  color: #000;
+  text-shadow: #f2f2f2 0.2rem 0.2rem; }
+
+.section-title .sub-heading {
+  font-size: 1.5rem;
+  width: 80%;
+  letter-spacing: 0;
+  text-align: center; }
+  @media only screen and (min-width: 112.5em) {
+    .section-title .sub-heading {
+      font-size: 1.7  rem; } }
+
+.banner-introduction--heading {
+  color: #f2f2f2;
+  font-size: 2.5rem;
+  text-shadow: #000 0.2rem 0.2rem; }
+  .banner-introduction--heading p {
+    font-size: 3rem; }
+
+.banner-introduction--body h6 {
+  font-size: 1.8rem;
+  color: #3e4c5a;
+  letter-spacing: 0.1rem; }
+  @media only screen and (min-width: 75em) {
+    .banner-introduction--body h6 {
+      font-size: 2rem; } }
+
+.banner-introduction--footer {
+  color: white;
+  font-size: 1.8rem;
+  text-transform: uppercase;
+  text-shadow: #000 0.1rem 0.1rem; }
+  .banner-introduction--footer .gym-name {
+    text-shadow: #000 0.2rem 0.2rem; }
+  .banner-introduction--footer p, .banner-introduction--footer span, .banner-introduction--footer h1 {
+    padding: 1rem 0;
+    margin-bottom: 0; }
+  .banner-introduction--footer h1 {
+    font-size: 2rem; }
+  .banner-introduction--footer span {
+    font-weight: bold; }
+  .banner-introduction--footer b {
+    text-shadow: #000 0.2rem 0.2rem; }
+
+#testimonials .customer {
+  color: #e01f1f;
+  text-shadow: #000 0.1rem 0.1rem;
+  font-weight: bold;
+  font-size: 2rem; }
+
+.banner-about .accordion-button {
+  color: #f2f2f2 !important;
+  font-size: 2rem;
+  font-weight: bold;
+  letter-spacing: 0.1rem;
+  text-shadow: #000 0.1rem 0.1rem;
+  text-transform: uppercase; }
+
+#about {
+  color: #f2f2f2; }
+  #about blockquote {
+    font-size: 1.8rem;
+    font-style: italic;
+    padding: 3rem 0; }
+  #about .about-right {
+    padding: 3rem 0; }
+  #about i {
+    color: #e01f1f;
+    font-size: 7rem; }
+  #about .features {
+    text-align: center; }
+    #about .features h4 {
+      font-weight: bold;
+      font-size: 2rem;
+      padding-bottom: 1rem; }
+
+#classes .section-content {
+  font-size: 1.8rem; }
+  #classes .section-content--title h3 {
+    font-size: 2.2rem;
+    text-shadow: #000 0.1rem 0.1rem; }
+  #classes .section-content button {
+    font-size: 1.6rem; }
+  #classes .section-content .modal-content {
+    background-color: #e01f1f;
+    text-align: left; }
+  #classes .section-content .modal-title {
+    font-size: 2rem; }
+
+#timetable .nav-link {
+  text-transform: uppercase;
+  color: #000;
+  font-weight: bold; }
+
+#timetable #myTabContent {
+  font-size: 1.8rem; }
+  #timetable #myTabContent .time {
+    color: #e01f1f; }
+  #timetable #myTabContent .lesson-title {
+    font-weight: bold;
+    color: #3e4c5a; }
+  #timetable #myTabContent .age-group {
+    font-style: italic;
+    color: #000; }
+  #timetable #myTabContent .btn {
+    font-size: 1.8rem; }
+
+.contact-banner {
+  color: #f2f2f2; }
+  .contact-banner h6 {
+    font-size: 2rem;
+    font-weight: bold;
+    letter-spacing: 0.1rem;
+    text-shadow: #000 0.1rem 0.1rem; }
+  .contact-banner--header {
+    font-size: 1.8rem;
+    text-transform: capitalize;
+    text-align: center; }
+  .contact-banner--button a {
+    font-size: 2rem;
+    border-radius: 0.5rem;
+    padding: 0.8rem 2rem;
+    text-transform: uppercase;
+    text-shadow: #000 0.1rem 0.1rem; }
+  .contact-banner--info i {
+    font-size: 3rem;
+    color: #ffffff;
+    text-shadow: #000 0.1rem 0.1rem; }
+    @media only screen and (min-width: 48em) {
+      .contact-banner--info i {
+        font-size: 6rem; } }
+  @media only screen and (min-width: 48em) {
+    .contact-banner--info .fa-phone {
+      font-size: 6.4rem; } }
+  @media only screen and (min-width: 75em) {
+    .contact-banner--info .fa-phone {
+      font-size: 6rem; } }
+
+footer .footer-title h2 {
+  font-size: 3rem;
+  text-align: center; }
+
+footer .social-icons {
+  font-size: 5rem; }
+  @media only screen and (min-width: 75em) {
+    footer .social-icons {
+      font-size: 8rem; } }
+  footer .social-icons .fa-facebook {
+    color: blue; }
+  footer .social-icons .fa-instagram {
+    color: pink; }
+
+footer i {
+  color: #e01f1f;
+  font-size: 4rem; }
+
+footer .day {
+  text-transform: uppercase; }
+
+footer span {
+  color: #b1b3b6; }
+
+.section-title, .footer-title {
+  background-color: transparent;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-bottom: #8080803b solid 0.1rem;
+  padding: 9rem 0 8rem 0;
+  height: auto; }
+
+.header-undirline {
+  background-color: #e01f1f;
+  border: #e01f1f solid 0.1rem;
+  height: 0.3rem;
+  width: 40%;
+  margin: 0.5rem 0 2rem 0;
+  border-radius: 0.3rem; }
+
+@media only screen and (min-width: 64em) {
+  .sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 10; } }
+
+/*components*/
+/*layout*/
+nav {
+  background-color: #2c2f32; }
+  nav > div {
+    justify-content: center !important; }
+  @media only screen and (min-width: 75em) {
+    nav {
+      width: 20%;
+      position: fixed !important;
+      top: 10%;
+      z-index: 1000;
+      right: 0;
+      background-color: transparent; } }
+  nav .navbar-toggler {
+    background-color: #3e4c5a;
+    margin: 0.5rem 0;
+    border-color: #0d6efd !important; }
+    @media only screen and (min-width: 75em) {
+      nav .navbar-toggler:hover {
+        -webkit-transform: scale(1.2);
+        -moz-transform: scale(1.2);
+        -ms-transform: scale(1.2);
+        transform: scale(1.2);
+        -webkit-filter: brightness(110%);
+        -moz-filter: brightness(110%);
+        -ms-filter: brightness(110%);
+        filter: brightness(110%);
+        transition: 0.5s; } }
+    nav .navbar-toggler:focus {
+      color: #e01f1f; }
+    nav .navbar-toggler .menu-hamburger .bar1,
+    nav .navbar-toggler .menu-hamburger .bar2,
+    nav .navbar-toggler .menu-hamburger .bar3 {
+      width: 2.8rem;
+      height: 0.4rem;
+      background-color: #e01f1f;
+      margin: 6px 0;
+      transition: 0.4s; }
+  @media only screen and (min-width: 75em) {
+    nav #top-main-nav {
+      overflow: hidden !important; } }
+  @media only screen and (min-width: 75em) {
+    nav #top-main-nav {
+      background-color: #f7f7f7; } }
+  @media only screen and (min-width: 75em) {
+    nav #top-main-nav .nav-item:hover {
+      -webkit-transform: scale(1.2);
+      -moz-transform: scale(1.2);
+      -ms-transform: scale(1.2);
+      transform: scale(1.2);
+      -webkit-filter: brightness(110%);
+      -moz-filter: brightness(110%);
+      -ms-filter: brightness(110%);
+      filter: brightness(110%);
+      transition: 0.5s;
+      background-color: #e01f1f; } }
+  nav #top-main-nav .nav-link {
+    text-align: center;
+    padding: 1.3rem 0.5rem;
+    border-top: #8080803b solid 0.1rem; }
+
+footer {
+  background-color: #2c2f32;
+  color: #f2f2f2; }
+  footer .container {
+    margin-bottom: 5rem; }
+  footer .footer-title {
+    padding: 9rem 0 2rem 0; }
+  footer .section-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap; }
+    footer .section-content .time {
+      flex: 50%;
+      text-align: center; }
+    footer .section-content .social-icons {
+      margin-top: 5rem; }
+      @media only screen and (min-width: 75em) {
+        footer .section-content .social-icons a:hover {
+          -webkit-transform: scale(1.2);
+          -moz-transform: scale(1.2);
+          -ms-transform: scale(1.2);
+          transform: scale(1.2);
+          -webkit-filter: brightness(110%);
+          -moz-filter: brightness(110%);
+          -ms-filter: brightness(110%);
+          filter: brightness(110%);
+          transition: 0.5s; } }
+      footer .section-content .social-icons .fa-facebook {
+        padding: 0 2rem 0 1rem; }
+      footer .section-content .social-icons .fa-instagram {
+        padding: 0 1rem 0 2rem; }
+    footer .section-content .footer-image {
+      margin-top: 2rem;
+      height: 100px;
+      width: 100px;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: contain; }
+  footer .all-rights {
+    text-align: center;
+    margin-top: 5rem;
+    margin-bottom: 0;
+    border-bottom: #8080803b solid 0.1rem; }
+  footer .container-fluid {
+    border-top: #e01f1f solid 0.1rem; }
+
+/*section*/
+#hero {
+  position: relative;
+  background-color: black !important; }
+  #hero .logo {
+    position: absolute;
+    top: 2%;
+    left: 50%;
+    z-index: 1;
+    transform: translate(-50%, -2%); }
+    @media only screen and (min-width: 64em) {
+      #hero .logo {
+        left: 15%;
+        top: 5%; } }
+    @media only screen and (min-width: 75em) {
+      #hero .logo {
+        left: 10%; } }
+    #hero .logo img {
+      width: 100%;
+      height: auto; }
+  #hero #hero-carousel {
+    height: 100vh; }
+    @media only screen and (min-width: 64em) {
+      #hero #hero-carousel {
+        height: auto; } }
+    @media only screen and (min-width: 75em) {
+      #hero #hero-carousel {
+        height: 100vh; } }
+    #hero #hero-carousel .carousel-indicators li {
+      background-color: #e01f1f !important; }
+    #hero #hero-carousel .carousel-inner {
+      height: 100%; }
+    #hero #hero-carousel .carousel-item {
+      top: 30%; }
+      @media only screen and (min-width: 64em) {
+        #hero #hero-carousel .carousel-item {
+          top: 0; } }
+    #hero #hero-carousel .carousel-caption {
+      color: white;
+      height: 100%;
+      top: 30%;
+      left: 2%;
+      width: 96%; }
+      @media only screen and (min-width: 48em) {
+        #hero #hero-carousel .carousel-caption {
+          width: 80%;
+          left: 50%;
+          top: 90%;
+          transform: translate(-50%, -30%); } }
+      @media only screen and (min-width: 64em) {
+        #hero #hero-carousel .carousel-caption {
+          top: 55%;
+          left: 50%;
+          width: 64%; }
+          #hero #hero-carousel .carousel-caption p {
+            font-size: 2.5rem;
+            text-shadow: #000 0.2rem 0.2rem; } }
+      @media only screen and (min-width: 112.5em) {
+        #hero #hero-carousel .carousel-caption {
+          top: 70%; } }
+      #hero #hero-carousel .carousel-caption h5 {
+        font-size: 2.6rem;
+        margin-bottom: 4.5rem;
+        text-shadow: black 0.2rem 0.2rem; }
+        @media only screen and (min-width: 48em) {
+          #hero #hero-carousel .carousel-caption h5 {
+            font-size: 4.6rem; } }
+        @media only screen and (min-width: 64em) {
+          #hero #hero-carousel .carousel-caption h5 {
+            font-size: 5rem;
+            font-weight: bold;
+            text-shadow: black 0.3rem 0.3rem; } }
+        #hero #hero-carousel .carousel-caption h5 span {
+          color: #e01f1f;
+          text-shadow: yellow 0.1rem 0.1rem;
+          font-size: 3.5rem;
+          padding-bottom: 0;
+          border-radius: 0.3rem; }
+          @media only screen and (min-width: 48em) {
+            #hero #hero-carousel .carousel-caption h5 span {
+              font-size: 5.4rem; } }
+          @media only screen and (min-width: 64em) {
+            #hero #hero-carousel .carousel-caption h5 span {
+              font-size: 5.9rem; } }
+      #hero #hero-carousel .carousel-caption .hero-btn {
+        padding: 0.3rem 0.5rem;
+        font-size: 1.8rem;
+        text-transform: uppercase;
+        font-weight: bold;
+        text-shadow: black 0.2rem 0.2rem;
+        background-color: #e01f1f;
+        color: white;
+        border: #0d6efd solid 0.1rem;
+        -webkit-box-shadow: 0px 3px 16px -7px #8f8f8f;
+        -moz-box-shadow: 0px 3px 16px -7px #8f8f8f;
+        box-shadow: 0px 3px 16px -7px #8f8f8f; }
+        @media only screen and (min-width: 75em) {
+          #hero #hero-carousel .carousel-caption .hero-btn:hover {
+            -webkit-transform: scale(1.2);
+            -moz-transform: scale(1.2);
+            -ms-transform: scale(1.2);
+            transform: scale(1.2);
+            -webkit-filter: brightness(110%);
+            -moz-filter: brightness(110%);
+            -ms-filter: brightness(110%);
+            filter: brightness(110%);
+            transition: 0.5s;
+            background-color: #e01f1f; } }
+        @media only screen and (min-width: 48em) {
+          #hero #hero-carousel .carousel-caption .hero-btn {
+            margin-top: 3rem;
+            font-size: 2.5rem; } }
+        @media only screen and (min-width: 64em) {
+          #hero #hero-carousel .carousel-caption .hero-btn {
+            padding: 0.6rem 1rem; } }
+
+@media only screen and (min-width: 64em) {
+  .banner-introduction .row {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row !important; } }
+
+.banner-introduction--heading {
+  background-color: #e01f1f;
+  padding: 3rem 2rem;
+  text-transform: uppercase; }
+  @media only screen and (min-width: 64em) {
+    .banner-introduction--heading {
+      min-height: 25rem; } }
+  .banner-introduction--heading p {
+    padding-bottom: 0;
+    margin-bottom: 0; }
+    @media only screen and (min-width: 48em) {
+      .banner-introduction--heading p {
+        margin: 0 auto;
+        margin-left: 23rem; } }
+    @media only screen and (min-width: 64em) {
+      .banner-introduction--heading p {
+        margin-left: 0; } }
+  .banner-introduction--heading span {
+    margin: 0 auto;
+    padding-bottom: 0; }
+
+.banner-introduction--body {
+  padding: 5rem 0; }
+  @media only screen and (min-width: 48em) {
+    .banner-introduction--body {
+      display: flex;
+      justify-content: center;
+      padding: 5rem !important; } }
+  @media only screen and (min-width: 64em) {
+    .banner-introduction--body {
+      padding: 0 !important;
+      padding-top: 3rem !important;
+      justify-content: space-around; } }
+  .banner-introduction--body h6 {
+    margin-bottom: 2.5rem;
+    padding: 0 0.8rem; }
+    .banner-introduction--body h6:last-child {
+      margin-bottom: 0; }
+
+.banner-introduction--footer {
+  background-color: #e01f1f;
+  border-top: #8080803b solid 0.1rem;
+  -webkit-box-shadow: 1px 11px 25px -13px white;
+  -moz-box-shadow: 1px 11px 25px -13px white;
+  box-shadow: 1px 11px 25px -13px white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  flex-wrap: wrap; }
+  @media only screen and (min-width: 48em) {
+    .banner-introduction--footer {
+      flex-direction: row;
+      justify-content: space-around; } }
+
+.banner-about {
+  background-color: #2c2f32; }
+  @media only screen and (min-width: 75em) {
+    .banner-about {
+      overflow: hidden; } }
+  .banner-about .row {
+    padding-top: 5rem !important; }
+    @media only screen and (min-width: 64em) {
+      .banner-about .row {
+        padding-top: 1rem !important; } }
+  .banner-about .accordion-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    width: 100%;
+    margin: 0 auto;
+    min-height: 7rem;
+    width: 100%;
+    background-color: #e01f1f;
+    color: white;
+    border: #0d6efd solid 0.1rem;
+    -webkit-box-shadow: 0px 3px 16px -7px #8f8f8f;
+    -moz-box-shadow: 0px 3px 16px -7px #8f8f8f;
+    box-shadow: 0px 3px 16px -7px #8f8f8f;
+    background-color: #e01f1f !important; }
+    @media only screen and (min-width: 75em) {
+      .banner-about .accordion-button:hover {
+        -webkit-transform: scale(1.2);
+        -moz-transform: scale(1.2);
+        -ms-transform: scale(1.2);
+        transform: scale(1.2);
+        -webkit-filter: brightness(110%);
+        -moz-filter: brightness(110%);
+        -ms-filter: brightness(110%);
+        filter: brightness(110%);
+        transition: 0.5s;
+        background-color: #e01f1f; } }
+    .banner-about .accordion-button::after {
+      background-color: #0d6efd;
+      margin-left: 1rem !important; }
+    .banner-about .accordion-button:active, .banner-about .accordion-button:focus {
+      border-color: #e01f1f !important; }
+  .banner-about .card {
+    background-color: #e01f1f;
+    color: #f2f2f2;
+    z-index: 1;
+    margin-bottom: 5rem;
+    -webkit-box-shadow: 0px 3px 16px -7px #8f8f8f;
+    -moz-box-shadow: 0px 3px 16px -7px #8f8f8f;
+    box-shadow: 0px 3px 16px -7px #8f8f8f; }
+    @media only screen and (min-width: 64em) {
+      .banner-about .card {
+        margin-bottom: 1rem !important; } }
+    .banner-about .card-title {
+      margin: 1rem 0; }
+    .banner-about .card-body {
+      padding: 0 !important; }
+      .banner-about .card-body li {
+        list-style: circle; }
+
+.contact-banner {
+  background-color: #e01f1f;
+  padding: 5rem 1rem; }
+  .contact-banner--header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    padding: 1rem 1rem; }
+  .contact-banner--button {
+    text-align: center;
+    margin-top: 1.5rem; }
+    .contact-banner--button .btn {
+      background-color: #040a01;
+      color: white;
+      border: #0d6efd solid 0.1rem;
+      -webkit-box-shadow: 0px 3px 16px -7px #8f8f8f;
+      -moz-box-shadow: 0px 3px 16px -7px #8f8f8f;
+      box-shadow: 0px 3px 16px -7px #8f8f8f;
+      background-color: #0e0101; }
+      @media only screen and (min-width: 75em) {
+        .contact-banner--button .btn:hover {
+          -webkit-transform: scale(1.2);
+          -moz-transform: scale(1.2);
+          -ms-transform: scale(1.2);
+          transform: scale(1.2);
+          -webkit-filter: brightness(110%);
+          -moz-filter: brightness(110%);
+          -ms-filter: brightness(110%);
+          filter: brightness(110%);
+          transition: 0.5s;
+          background-color: #081302; } }
+  .contact-banner--info {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: nowrap; }
+    @media only screen and (min-width: 48em) {
+      .contact-banner--info > :not(:last-child) {
+        margin-bottom: 2rem; } }
+    @media only screen and (min-width: 75em) {
+      .contact-banner--info {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        min-height: 13rem; } }
+    .contact-banner--info a {
+      margin-right: 1.5rem; }
+      @media only screen and (min-width: 48em) {
+        .contact-banner--info a {
+          margin-right: 3rem; } }
+      @media only screen and (min-width: 75em) {
+        .contact-banner--info a:hover {
+          -webkit-transform: scale(1.2);
+          -moz-transform: scale(1.2);
+          -ms-transform: scale(1.2);
+          transform: scale(1.2);
+          -webkit-filter: brightness(110%);
+          -moz-filter: brightness(110%);
+          -ms-filter: brightness(110%);
+          filter: brightness(110%);
+          transition: 0.5s; } }
+
+#testimonials {
+  background-color: #2c2f32;
+  height: 100vh; }
+  @media only screen and (min-width: 48em) {
+    #testimonials {
+      height: 100%; } }
+  #testimonials #testimonial-carousel .carousel-indicators {
+    bottom: -5%; }
+    @media only screen and (min-width: 48em) {
+      #testimonials #testimonial-carousel .carousel-indicators {
+        bottom: 10%; } }
+    @media only screen and (min-width: 75em) {
+      #testimonials #testimonial-carousel .carousel-indicators {
+        bottom: 15%; } }
+  #testimonials #testimonial-carousel .carousel-item {
+    height: 65vh; }
+    @media only screen and (min-width: 48em) {
+      #testimonials #testimonial-carousel .carousel-item {
+        height: 40vh; } }
+    @media only screen and (min-width: 75em) {
+      #testimonials #testimonial-carousel .carousel-item {
+        height: 60vh; } }
+  #testimonials #testimonial-carousel .carousel-caption {
+    height: 100%;
+    top: 5%; }
+    @media only screen and (min-width: 22.5em) {
+      #testimonials #testimonial-carousel .carousel-caption {
+        top: 20%;
+        height: 75%; } }
+    @media only screen and (min-width: 48em) {
+      #testimonials #testimonial-carousel .carousel-caption {
+        top: 25%;
+        height: 50%; } }
+    @media only screen and (min-width: 112.5em) {
+      #testimonials #testimonial-carousel .carousel-caption {
+        top: 35%; } }
+
+#about .section-content {
+  padding: 1rem; }
+
+#about .about-left {
+  background-color: #2c2f32; }
+  @media only screen and (min-width: 48em) {
+    #about .about-left .section-content {
+      padding: 0 5rem !important; } }
+
+#about .about-right {
+  color: #616569;
+  padding-top: 3rem; }
+  @media only screen and (min-width: 48em) {
+    #about .about-right {
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+      flex-direction: row;
+      flex-wrap: wrap; }
+      #about .about-right > :nth-child(3) {
+        border-bottom: none !important; } }
+  #about .about-right > :not(:last-child) {
+    border-bottom: #8080803b solid 0.1rem; }
+  #about .about-right .features {
+    margin: 1rem 0;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    padding: 1rem; }
+    @media only screen and (min-width: 48em) {
+      #about .about-right .features {
+        width: 40%; } }
+
+#classes {
+  background-color: #2c2f32;
+  color: #f2f2f2;
+  padding: 3rem 0; }
+  #classes .section-content {
+    text-align: center;
+    padding-top: 5rem;
+    justify-content: center; }
+    #classes .section-content .row > div {
+      margin-bottom: 10rem; }
+    #classes .section-content--title {
+      margin-bottom: 3rem; }
+    #classes .section-content .classes-bg-image {
+      height: 300px;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: auto; }
+    #classes .section-content button {
+      background-color: #e01f1f;
+      color: rgb(255, 255, 255);
+      border: #0d6efd solid 0.1rem;
+      -webkit-box-shadow: 0px 3px 16px -7px #8f8f8f;
+      -moz-box-shadow: 0px 3px 16px -7px #8f8f8f;
+      box-shadow: 0px 3px 16px -7px #8f8f8f; }
+      @media only screen and (min-width: 75em) {
+        #classes .section-content button:hover {
+          -webkit-transform: scale(1.2);
+          -moz-transform: scale(1.2);
+          -ms-transform: scale(1.2);
+          transform: scale(1.2);
+          -webkit-filter: brightness(110%);
+          -moz-filter: brightness(110%);
+          -ms-filter: brightness(110%);
+          filter: brightness(110%);
+          transition: 0.5s;
+          background-color: #e01f1f; } }
+  #classes .modal-content {
+    color: #ffffff;
+    margin-top: 20% !important;
+    -webkit-box-shadow: 0px 3px 16px -7px #8f8f8f;
+    -moz-box-shadow: 0px 3px 16px -7px #8f8f8f;
+    box-shadow: 0px 3px 16px -7px #8f8f8f; }
+
+#timetable {
+  padding: 5rem 0; }
+  #timetable .sub-heading {
+    margin-bottom: 3rem; }
+  #timetable #myTab {
+    margin-top: 5rem;
+    justify-content: center; }
+    #timetable #myTab .nav-link {
+      min-width: 6rem !important;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: row;
+      flex-wrap: nowrap; }
+    #timetable #myTab .active {
+      background-color: #e01f1f;
+      color: white;
+      border: #0d6efd solid 0.1rem;
+      -webkit-box-shadow: 0px 3px 16px -7px #8f8f8f;
+      -moz-box-shadow: 0px 3px 16px -7px #8f8f8f;
+      box-shadow: 0px 3px 16px -7px #8f8f8f;
+      border-bottom: none !important; }
+      @media only screen and (min-width: 75em) {
+        #timetable #myTab .active:hover {
+          -webkit-transform: scale(1.2);
+          -moz-transform: scale(1.2);
+          -ms-transform: scale(1.2);
+          transform: scale(1.2);
+          -webkit-filter: brightness(110%);
+          -moz-filter: brightness(110%);
+          -ms-filter: brightness(110%);
+          filter: brightness(110%);
+          transition: 0.5s;
+          background-color: #d72123; } }
+  #timetable .tab-content .row {
+    border-bottom: #8080803b solid 0.1rem;
+    padding: 3rem 0;
+    background-color: #f7f7f7; }
+    #timetable .tab-content .row > div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      flex-wrap: nowrap;
+      background-color: #f7f7f7; }
+      #timetable .tab-content .row > div p {
+        padding-bottom: 0;
+        margin-bottom: 0; }
+    #timetable .tab-content .row .btn {
+      margin: 2rem 0;
+      background-color: #c11e1f;
+      color: white;
+      border: #0d6efd solid 0.1rem;
+      -webkit-box-shadow: 0px 3px 16px -7px #8f8f8f;
+      -moz-box-shadow: 0px 3px 16px -7px #8f8f8f;
+      box-shadow: 0px 3px 16px -7px #8f8f8f;
+      background-color: #198754; }
+      @media only screen and (min-width: 75em) {
+        #timetable .tab-content .row .btn:hover {
+          -webkit-transform: scale(1.2);
+          -moz-transform: scale(1.2);
+          -ms-transform: scale(1.2);
+          transform: scale(1.2);
+          -webkit-filter: brightness(110%);
+          -moz-filter: brightness(110%);
+          -ms-filter: brightness(110%);
+          filter: brightness(110%);
+          transition: 0.5s;
+          background-color: #d72123; } }
+
+#gallery {
+  background-color: #2c2f32; }
+  #gallery .section-content {
+    padding-bottom: 10rem; }
+    @media only screen and (min-width: 48em) {
+      #gallery .section-content {
+        display: flex;
+        flex-wrap: wrap; } }
+    #gallery .section-content .row > div {
+      padding: 0; }
+    #gallery .section-content .gallery-bg-image {
+      height: 237px;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: auto; }

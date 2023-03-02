@@ -1,0 +1,19 @@
+#gallery{
+    background-color: $primary-gray;
+    .section-content{
+        padding-bottom: 10rem;
+        @include respond(tab-port) {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .row > div{
+            padding: 0;
+        }
+        .gallery-bg-image{          
+            height: 237px; 
+            background-position: center; 
+            background-repeat: no-repeat; 
+            background-size: auto; 
+        }
+    }
+}

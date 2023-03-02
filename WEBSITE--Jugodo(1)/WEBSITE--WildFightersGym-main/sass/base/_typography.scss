@@ -1,0 +1,316 @@
+/*“Web typography” refers to the appearance of all the text on your website. It includes basic 
+CSS text properties like what font to use and whether it should be italic or not, but typography 
+is much more than that. It’s about the space between and around letters, words, and lines. It’s 
+the size of different runs of text in relation to one another, and the history behind each font family.
+
+https://www.internetingishard.com/html-and-css/web-typography/
+*/
+
+/* !!!!___ Use % rather than px for all layout-related lenghts (including pictures) ___!!!! */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "IM Fell English", serif;
+  text-transform: uppercase;
+  color: white;
+}
+
+p {
+  font-size: 1.7rem;
+  padding-bottom: 1rem;
+  line-height: 3rem;
+  @include respond(big-desktop) {
+    font-size: 1.8rem;
+  }
+}
+li {
+  font-size: 1.7rem;
+  @include respond(big-desktop) {
+    font-size: 1.8rem;
+  }
+}
+
+//HIPERLINKS
+a {
+  text-decoration: none;
+  font-size: 1.8rem;
+  @include respond(big-desktop) {
+    font-size: 1.9rem;
+  }
+}
+
+
+
+//NAV
+#top-main-nav {
+  .nav-link {
+    color: white;
+    text-transform: uppercase;
+    text-shadow: $black 0.1rem 0.1rem;
+    @include respond(large-desktop) {
+      color: $black;
+      text-shadow: none;
+      &:hover {
+        color: $white;
+        text-shadow: $black 0.1rem 0.1rem;
+      }
+    }
+  }
+}
+
+//SECTION HEADER
+.section-title {
+  .section-header {
+    color: white;
+    font-size: 3rem;
+    text-align: center;
+    text-shadow: $black 0.1rem 0.1rem;
+    @include respond(big-desktop) {
+      font-size: 3.5rem;
+    }
+  }
+  .section-header-white-bg {
+    color: $black;
+    text-shadow: $white 0.2rem 0.2rem;
+  }
+  //SECTION SUB-HEADING
+  .sub-heading {
+    font-size: 1.5rem;
+    @include respond(big-desktop) {
+      font-size: 1.7  rem;
+    }
+    width: 80%;
+    letter-spacing: 0;
+    text-align: center;
+  }
+}
+
+//BANNERS
+
+.banner-introduction {
+  &--heading {
+    color: $white;
+    font-size: 2.5rem;
+    text-shadow: $black 0.2rem 0.2rem;
+    p {
+      font-size: 3rem;
+    }
+  }
+  &--body {
+    // text-align: center;
+
+    h6 {
+      font-size: 1.8rem;
+      color: $font-dark-gray;
+      letter-spacing: 0.1rem;
+      @include respond(large-desktop){
+        font-size: 2rem;
+      }
+    }
+  }
+  &--footer{
+    color: white;
+    font-size: 1.8rem;
+    text-transform: uppercase;
+    text-shadow: $black 0.1rem 0.1rem;
+    .gym-name{
+      text-shadow: $black 0.2rem 0.2rem;
+    }
+    p, span, h1{
+      padding: 1rem 0;
+      margin-bottom: 0;
+
+    }
+    h1{
+      font-size: 2rem;
+    }
+    span{
+      font-weight: bold;
+    }
+    b{
+      text-shadow: $black 0.2rem 0.2rem;
+    }
+   
+  }
+}
+
+//TESTIMONIALS
+#testimonials {
+  .customer {
+    color: $primary-red;
+    text-shadow: $black 0.1rem 0.1rem;
+    font-weight: bold;
+    font-size: 2rem;
+  }
+}
+
+//ABOUT
+.banner-about {
+  .accordion-button {
+    color: $white !important;
+    font-size: 2rem;
+    font-weight: bold;
+    letter-spacing: 0.1rem;
+    text-shadow: $black 0.1rem 0.1rem;
+    text-transform: uppercase;
+  }
+}
+
+#about {
+  color: $white;
+  blockquote {
+    font-size: 1.8rem;
+    font-style: italic;
+    padding: 3rem 0;
+  }
+  .about-right {
+    padding: 3rem 0;
+  }
+  i {
+    color: $primary-red;
+    font-size: 7rem;
+  }
+
+  .features {
+    text-align: center;
+    h4 {
+      font-weight: bold;
+      font-size: 2rem;
+      padding-bottom: 1rem;
+    }
+  }
+}
+
+//CLASSES
+#classes {
+  .section-content {
+    font-size: 1.8rem;
+    &--title {
+      h3 {
+        font-size: 2.2rem;
+        text-shadow: $black 0.1rem 0.1rem;
+      }
+    }
+    button {
+      font-size: 1.6rem;
+    }
+    .modal-content {
+      background-color: $primary-red;
+      text-align: left;
+    }
+    .modal-title {
+      font-size: 2rem;
+    }
+  }
+}
+
+//TIMETABLE
+#timetable {
+  .nav-link {
+    text-transform: uppercase;
+    color: $black;
+    font-weight: bold;
+  }
+  #myTabContent {
+    font-size: 1.8rem;
+    .time {
+      color: $primary-red;
+    }
+    .lesson-title {
+      font-weight: bold;
+      color: $font-dark-gray;
+    }
+    .age-group {
+      font-style: italic;
+      color: $black;
+    }
+    .btn {
+      font-size: 1.8rem;
+    }
+  }
+}
+
+//BANNER
+.contact-banner {
+  color: $white;
+  h6 {
+    font-size: 2rem;
+    font-weight: bold;
+    letter-spacing: 0.1rem;
+    text-shadow: $black 0.1rem 0.1rem;
+  }
+
+  &--header {
+    font-size: 1.8rem;
+    text-transform: capitalize;
+    text-align: center;
+  }
+  &--button {
+    a {
+      font-size: 2rem;
+      border-radius: 0.5rem;
+      padding: 0.8rem 2rem;
+      text-transform: uppercase;
+      text-shadow: $black 0.1rem 0.1rem;
+    }
+  }
+
+  &--info {
+    i {
+      font-size: 3rem;
+      color: #198754;
+      text-shadow: $black 0.1rem 0.1rem;
+     
+      @include respond(tab-port) {
+        font-size: 6rem;
+      }
+    }
+    .fa-phone {
+      @include respond(tab-port) {
+        font-size: 6.4rem;
+      }
+      @include respond(large-desktop) {
+        font-size: 6rem;
+      }
+
+    }
+  }
+}
+
+//FOOTER
+footer {
+  .footer-title {
+    h2 {
+      font-size: 3rem;
+      text-align: center;
+    }
+  }
+  .social-icons {
+    font-size: 5rem;
+    @include respond(large-desktop){
+      font-size: 8rem;
+    }
+ 
+    .fa-facebook {
+      color: blue;
+    }
+    .fa-instagram {
+      color: pink;
+    }
+  }
+  i {
+    color: $primary-red;
+    font-size: 4rem;
+    
+  }
+  .day {
+    text-transform: uppercase;
+  }
+  span {
+    color: $font-light-gray;
+  }
+}

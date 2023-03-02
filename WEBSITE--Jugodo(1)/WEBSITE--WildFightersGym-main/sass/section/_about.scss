@@ -1,0 +1,42 @@
+
+
+#about{
+   // border-top: $primary-red solid 0.1rem;
+
+    .section-content{
+        padding: 1rem;
+      }
+    .about-left{
+        background-color: $primary-gray;
+     
+        .section-content{
+            @include respond(tab-port) {
+                padding: 0 5rem !important;
+               }
+        }
+    }
+    .about-right{
+        color: $font-gray;
+        @include respond(tab-port) {
+            @include flex-jc-ai-fdir-fwrap(center, stretch, row, wrap);     
+            & >:nth-child(3) { 
+                border-bottom: none !important;
+              }
+            }
+    
+        padding-top: 3rem;
+        & > :not(:last-child) { 
+            border-bottom: $border-gray solid 0.1rem;
+          }     
+        .features{
+            margin: 1rem 0; 
+            @include flex-jc-ai-fdir-fwrap(flex-start, center, column, nowrap); 
+            padding: 1rem;
+            @include respond(tab-port) {
+                width: 40%;
+                }
+               
+            
+        }
+    }
+}

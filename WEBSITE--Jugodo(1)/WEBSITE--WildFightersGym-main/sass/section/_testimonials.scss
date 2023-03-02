@@ -1,0 +1,46 @@
+#testimonials{
+    background-color: $primary-gray;
+    height: 100vh;
+    @include respond(tab-port) {
+        height: 100%;
+      } 
+    .section-title{
+       // background-color: $primary-gray;
+    }
+    #testimonial-carousel{
+        .carousel-indicators{
+            bottom: -5%;
+            @include respond(tab-port) {
+                bottom: 10%;
+              }
+              @include respond(large-desktop) {
+                bottom: 15%;
+              }   
+        }
+        .carousel-item{
+            height: 65vh;
+            @include respond(tab-port) {
+              height: 40vh;
+            }
+            @include respond(large-desktop) {
+              height: 60vh;
+            }
+        }
+        .carousel-caption{
+            height: 100%;
+            top: 5%;
+            @include respond(m-phone) {
+                top: 20%;
+                height: 75%;
+              }
+              @include respond(tab-port) {
+                top: 25%;
+                height: 50%;
+              }  
+              @include respond(big-desktop) {
+                top: 35%;
+              }
+         
+        }
+    }
+}

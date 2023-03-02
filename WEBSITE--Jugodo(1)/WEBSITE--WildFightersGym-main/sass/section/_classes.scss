@@ -1,0 +1,32 @@
+#classes {
+  background-color: $primary-gray;
+  color: $white;
+  padding: 3rem 0;
+  .section-content {
+    text-align: center;
+    padding-top: 5rem;
+    justify-content: center;
+
+    .row > div {
+      margin-bottom: 10rem;
+    }
+    &--title {
+      margin-bottom: 3rem;
+    }
+    .classes-bg-image {
+      height: 300px;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: auto;
+    }
+    button {
+      @include main-button-settings;
+    }
+  }
+  .modal-content {
+    color: $white;
+    margin-top: 20% !important;
+    @include shadow;
+
+  }
+}

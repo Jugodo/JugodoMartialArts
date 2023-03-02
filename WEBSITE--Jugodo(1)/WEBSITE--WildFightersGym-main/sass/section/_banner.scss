@@ -1,0 +1,162 @@
+.banner-introduction {
+  //background-color: $primary-red;
+  @include respond(tab-land) {
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: row !important;
+    }
+  }
+
+  &--heading {
+    background-color: $primary-red;
+    padding: 3rem 2rem;
+    text-transform: uppercase;
+    @include respond(tab-land) {
+      min-height: 25rem;
+    }
+    p {
+      padding-bottom: 0;
+      margin-bottom: 0;
+      @include respond(tab-port) {
+        margin: 0 auto;
+        margin-left: 23rem;
+      }
+      @include respond(tab-land) {
+        margin-left: 0;
+      }
+    }
+    span {
+      margin: 0 auto;
+      padding-bottom: 0;
+    }
+  }
+  &--body {
+    padding: 5rem 0;
+    @include respond(tab-port) {
+      display: flex;
+      justify-content: center;
+      padding: 5rem !important;
+    }
+    @include respond(tab-land) {
+      padding: 0 !important;
+      padding-top: 3rem !important;
+      justify-content: space-around;
+    }
+    h6 {
+      margin-bottom: 2.5rem;
+      padding: 0 0.8rem;
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+  &--footer{
+    background-color: $primary-red;
+    border-top: $border-gray solid 0.1rem;
+    -webkit-box-shadow: 1px 11px 25px -13px rgba(255,255,255,1);
+-moz-box-shadow: 1px 11px 25px -13px rgba(255,255,255,1);
+box-shadow: 1px 11px 25px -13px rgba(255,255,255,1);
+    @include flex-jc-ai-fdir-fwrap(center, center, column, wrap); 
+    @include respond(tab-port){
+      flex-direction: row;
+      justify-content: space-around;
+    }
+
+  }
+}
+
+.banner-about {
+  background-color: $primary-gray;
+  //border-top: $primary-red solid 0.1rem;
+  @include respond(large-desktop) {
+    overflow: hidden;
+  }
+
+  .row {
+    padding-top: 5rem !important;
+    @include respond(tab-land) {
+      padding-top: 1rem !important;
+    }
+  }
+  .accordion-button {
+    @include flex-jc-ai-fdir-fwrap(center, center, row, nowrap); 
+    width: 100%;
+    margin: 0 auto;
+    min-height: 7rem;
+    width: 100%;
+    @include main-button-settings;
+    background-color: $primary-red !important;
+    &::after {
+      background-color: $primary-blue;
+      margin-left: 1rem !important;
+    }
+    &:active,
+    &:focus {
+      border-color: $primary-red !important;
+    }
+  }
+
+  .card {
+    background-color: $primary-red;
+    color: $white;
+    z-index: 1;
+    margin-bottom: 5rem;
+   @include shadow;
+    @include respond(tab-land) {
+      margin-bottom: 1rem !important;
+    }
+    &-title {
+      margin: 1rem 0;
+    }
+    &-body {
+      padding: 0 !important;
+
+      li {
+        list-style: circle;
+      }
+    }
+  }
+}
+
+.contact-banner {
+  background-color: $primary-red;
+  padding: 5rem 1rem;
+
+  &--header {
+    @include flex-jc-ai-fdir-fwrap(center, center, column, nowrap); 
+    padding: 1rem 1rem;
+  }
+  &--button {
+    text-align: center;
+    margin-top: 1.5rem;
+    .btn {
+      @include main-button-settings;
+      background-color: $primary-green;
+    }
+  }
+  &--info {
+    @include flex-jc-ai-fdir-fwrap(flex-start, center, row, nowrap); 
+    @include respond(tab-port) {
+      & > :not(:last-child) {
+        margin-bottom: 2rem;
+      }
+    }
+    @include respond(large-desktop) {
+      @include flex-jc-ai-fdir-fwrap(center, center, row, nowrap); 
+      min-height: 13rem;
+    }
+
+    a {
+      margin-right: 1.5rem;
+      @include respond(tab-port) {
+        margin-right: 3rem;
+      }
+      @include respond(large-desktop) {
+        &:hover {
+          @include scale-up;
+        }
+      }
+    }
+  }
+}
